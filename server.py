@@ -47,7 +47,16 @@ def main():
                 print("Client disconnected.")
                 break
             print(f"Client: {data.strip()}")
-            msg = input("You: ")
+            # Automatically generate a reply (repeat last 2-3 words with a ?)
+            words = data.strip().split()
+            if len(words) >= 3:
+                msg = " ".join(words[-3:])
+            elif len(words) >= 2:
+                msg = " ".join(words[-2:])
+            else:
+                msg = data.strip()
+            msg += "?"
+            
             conn.sendall((msg + '\n').encode())
             if msg.strip().lower() == "exit":
                 print("Server exiting.")
