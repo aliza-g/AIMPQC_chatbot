@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #ffe3ba;
+      background: #f6bd60;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,7 +16,7 @@
     .chat-container {
       width: 400px;
       height: 500px;
-      background: #ffcb7f;
+      background: #f7ede2;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       display: flex;
@@ -44,7 +44,7 @@
     .input-area button {
       padding: 10px;
       border: none;
-      background: #007bff;
+      background: #f5ca3;
       color: #fff;
       cursor: pointer;
     }
@@ -72,7 +72,7 @@
       userMsg.textContent = "You: " + text;
       messages.appendChild(userMsg);
 
-      // Simulate a reply (replace this with real server connection later)
+      // Simulate a reply
       const reply = document.createElement("div");
       reply.className = "message";
       const words = text.split(" ");
