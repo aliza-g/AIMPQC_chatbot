@@ -1,54 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <title>ChatBot?</title>
   <style>
-    <!–– background outside of chatbox ––>
     body {
       font-family: Arial, sans-serif;
-      background: #f6bd60;
+      background: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
-   
+
     .chat-container {
       width: 400px;
       height: 500px;
-      background: #96bbbb;  <!–– background for chatbox ––>
+      background: #fff;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
       overflow: hidden;
     }
+
     .messages {
       flex: 1;
       padding: 10px;
       overflow-y: auto;
-      border-bottom: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    .message {
-      margin-bottom: 10px;
+
+    .bubble {
+      max-width: 70%;
+      padding: 10px 15px;
+      border-radius: 20px;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.4;
     }
+
+    .bubble.user {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+
+    .bubble.server {
+      background-color: #eee;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+
     .input-area {
       display: flex;
+      border-top: 1px solid #ccc;
     }
+
     .input-area input {
       flex: 1;
       padding: 10px;
       border: none;
-      border-top: 1px solid #ccc;
+      font-size: 14px;
     }
+
     .input-area button {
-      padding: 10px;
+      padding: 10px 15px;
       border: none;
-      background: #c49bbb; <!-- flame -->
-      color: #e4572e; <!-- flame -->
+      background: #007bff;
+      color: #fff;
+      font-size: 14px;
       cursor: pointer;
+    }
+
+    .input-area button:hover {
+      background: #0056b3;
     }
   </style>
 </head>
@@ -65,24 +94,31 @@
     const messages = document.getElementById("messages");
     const input = document.getElementById("input");
 
+    function addMessage(text, sender) {
+      const bubble = document.createElement("div");
+      bubble.className = "bubble " + sender;
+      bubble.textContent = text;
+      messages.appendChild(bubble);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
     function sendMessage() {
       const text = input.value.trim();
       if (text === "") return;
 
-      const userMsg = document.createElement("div");
-      userMsg.className = "message";
-      userMsg.textContent = "You: " + text;
-      messages.appendChild(userMsg);
+      // User's message
+      addMessage("You: " + text, "user");
 
-      // Simulate a reply
-      const reply = document.createElement("div");
-      reply.className = "message";
+      // Simulated server reply
       const words = text.split(" ");
       const lastWords = words.slice(-3).join(" ");
-      reply.textContent = "Server: " + lastWords + "?";
-      messages.appendChild(reply);
+      const reply = lastWords + "?";
 
-      messages.scrollTop = messages.scrollHeight;
+      // Delay to simulate thinking
+      setTimeout(() => {
+        addMessage("Server: " + reply, "server");
+      }, 500);
+
       input.value = "";
     }
 
