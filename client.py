@@ -8,34 +8,43 @@
 # supports graceful disconnection using a keyword ("exit")
 
 import socket
-import sys
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python client.py <port>")
-        sys.exit(1)
+    host = 'localhost'  # or '127.0.0.1' if you're running it on the same machine
 
-    port = int(sys.argv[1])
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Ask user for port
+    try:
+        port = int(input("Enter the port to connect to: "))
+        if not (1025 <= port <= 65535):
+            raise ValueError("Port must be between 1025 and 65535.")
+    except ValueError as e:
+        print(f"Invalid port: {e}")
+        return
+
+    # Connect to the server
+    try:
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect((host, port))
+        print(f"Connected to chat server on port {port}. Type 'exit' to disconnect.")
+    except ConnectionRefusedError:
+        print("Could not connect to server. Make sure it's running.")
+        return
 
     try:
-        client_socket.connect(('localhost', port))
-        welcome = client_socket.recv(1024).decode()
-        print(welcome.strip())
-
         while True:
-            msg = input("You: ")
-            client_socket.sendall((msg + '\n').encode())
-            if msg.strip().lower() == "exit":
+            message = input("You: ")
+            client_socket.sendall((message + '\n').encode())
+
+            if message.strip().lower() == "exit":
                 print("Disconnected from server.")
                 break
-            data = client_socket.recv(1024).decode()
-            if not data or data.strip().lower() == "exit":
+
+            reply = client_socket.recv(1024).decode().strip()
+            if not reply:
                 print("Server disconnected.")
                 break
-            print(f"Server: {data.strip()}")
-    except ConnectionRefusedError:
-        print("Could not connect to server. Make sure the server is running.")
+
+            print("Server:", reply)
     finally:
         client_socket.close()
 
