@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #F3C178; /* earth yellow */
+      background: #F3C178;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,7 +17,7 @@
     .chat-container {
       width: 400px;
       height: 500px;
-      background: #ACEDFF; /* non photo blue */
+      background: #ACEDFF;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       display: flex;
@@ -44,13 +44,13 @@
     }
 
     .bubble.user {
-      background-color: #FFB8DE; /* lavender pink */
+      background-color: #FFB8DE;
       align-self: flex-end;
       border-bottom-right-radius: 0;
     }
 
     .bubble.server {
-      background-color: #785964; /* rose taupe */
+      background-color: #785964;
       color: #fff;
       align-self: flex-start;
       border-bottom-left-radius: 0;
@@ -71,7 +71,7 @@
     .input-area button {
       padding: 10px 15px;
       border: none;
-      background: #002642; /* prussian blue */
+      background: #002642;
       color: #fff;
       font-size: 14px;
       cursor: pointer;
@@ -95,6 +95,20 @@
     const messages = document.getElementById("messages");
     const input = document.getElementById("input");
 
+    const socket = new WebSocket("ws://localhost:8765"); // Adjust if hosted elsewhere
+
+    socket.onopen = () => {
+      addMessage("Connected to the server!", "server");
+    };
+
+    socket.onmessage = (event) => {
+      addMessage(event.data, "server");
+    };
+
+    socket.onclose = () => {
+      addMessage("Disconnected from the server.", "server");
+    };
+
     function addMessage(text, sender) {
       const bubble = document.createElement("div");
       bubble.className = "bubble " + sender;
@@ -106,20 +120,8 @@
     function sendMessage() {
       const text = input.value.trim();
       if (text === "") return;
-
-      // User's message
       addMessage("You: " + text, "user");
-
-      // Simulated server reply
-      const words = text.split(" ");
-      const lastWords = words.slice(-3).join(" ");
-      const reply = lastWords + "?";
-
-      // Delay to simulate thinking
-      setTimeout(() => {
-        addMessage("Server: " + reply, "server");
-      }, 500);
-
+      socket.send(text);
       input.value = "";
     }
 
