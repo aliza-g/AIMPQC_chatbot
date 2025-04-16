@@ -9,7 +9,8 @@
      body {
        font-family: Arial, sans-serif;
        background: #f6bd60;
- @@ -13,10 +14,11 @@
+       display: flex;
+       justify-content: center;
        align-items: center;
        height: 100vh;
      }
@@ -17,17 +18,34 @@
      .chat-container {
        width: 400px;
        height: 500px;
-       background: #f7ede2;
        background: #96bbbb;  <!–– background for chatbox ––>
        border-radius: 10px;
        box-shadow: 0 0 10px rgba(0,0,0,0.1);
        display: flex;
- @@ -44,50 +46,50 @@
+       flex-direction: column;
+       overflow: hidden;
+     }
+     .messages {
+       flex: 1;
+       padding: 10px;
+       overflow-y: auto;
+       border-bottom: 1px solid #ccc;
+     }
+     .message {
+       margin-bottom: 10px;
+     }
+     .input-area {
+       display: flex;
+     }
+     .input-area input {
+       flex: 1;
+       padding: 10px;
+       border: none;
+       border-top: 1px solid #ccc;
+     }
      .input-area button {
        padding: 10px;
        border: none;
-       background: #f5ca3;
-       color: #fff;
        background: #c49bbb; <!-- flame -->
        color: #e4572e; <!-- flame -->
        cursor: pointer;
