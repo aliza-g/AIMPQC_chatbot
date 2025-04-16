@@ -1,69 +1,39 @@
-<html lang="en">
+<!DOCTYPE html>
+ <html lang="en">
  
  <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>ChatBot?</title>
-     <link rel="icon" type="image/x-icon" href="IMG/icon.PNG">
    <meta charset="UTF-8" />
-   <title>Chat GUI</title>
+   <title>ChatBot?</title>
    <style>
+     <!–– background outside of chatbox ––>
      body {
        font-family: Arial, sans-serif;
-       background: #f0f0f0;
-       display: flex;
-       justify-content: center;
+       background: #f6bd60;
+ @@ -13,10 +14,11 @@
        align-items: center;
        height: 100vh;
      }
+    
      .chat-container {
        width: 400px;
        height: 500px;
-       background: #fff;
+       background: #f7ede2;
+       background: #96bbbb;  <!–– background for chatbox ––>
        border-radius: 10px;
        box-shadow: 0 0 10px rgba(0,0,0,0.1);
        display: flex;
-       flex-direction: column;
-       overflow: hidden;
-     }
-     .messages {
-       flex: 1;
-       padding: 10px;
-       overflow-y: auto;
-       border-bottom: 1px solid #ccc;
-     }
-     .message {
-       margin-bottom: 10px;
-     }
-     .input-area {
-       display: flex;
-     }
-     .input-area input {
-       flex: 1;
-       padding: 10px;
-       border: none;
-       border-top: 1px solid #ccc;
-     }
+ @@ -44,50 +46,50 @@
      .input-area button {
        padding: 10px;
        border: none;
-       background: #007bff;
+       background: #f5ca3;
        color: #fff;
+       background: #c49bbb; <!-- flame -->
+       color: #e4572e; <!-- flame -->
        cursor: pointer;
      }
    </style>
  </head>
- <style>
-     :root {
-         --1-color: #fff2d8;
-         --7-color: #f2e9d4;
-         --2-color: #fccdd3;
-         --3-color: #fca2cf;
-         --4-color: #d8f4f6;
-         --5-color: #ade1eb;
-         --6-color: #2a3031;
-         --8-color: #f3dada;
-         --9-color:#dbaec5;
  <body>
    <div class="chat-container">
      <div class="messages" id="messages"></div>
@@ -73,15 +43,10 @@
      </div>
    </div>
  
-     }
    <script>
      const messages = document.getElementById("messages");
      const input = document.getElementById("input");
  
-     body {
-         background-color: var(--1-color);
-         font-family: 'Andale Mono', monospace;
-     }
      function sendMessage() {
        const text = input.value.trim();
        if (text === "") return;
@@ -91,7 +56,7 @@
        userMsg.textContent = "You: " + text;
        messages.appendChild(userMsg);
  
-       // Simulate a reply (replace this with real server connection later)
+       // Simulate a reply
        const reply = document.createElement("div");
        reply.className = "message";
        const words = text.split(" ");
@@ -99,9 +64,6 @@
        reply.textContent = "Server: " + lastWords + "?";
        messages.appendChild(reply);
  
-     h1 {
-         font-size: 40px;
-         font-weight: bold;
        messages.scrollTop = messages.scrollHeight;
        input.value = "";
      }
@@ -113,4 +75,3 @@
      });
    </script>
  </body>
- </html>
