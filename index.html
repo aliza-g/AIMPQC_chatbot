@@ -91,24 +91,7 @@
     </div>
   </div>
 
-  <script>
-    const messages = document.getElementById("messages");
-    const input = document.getElementById("input");
-
-    const socket = new WebSocket("ws://localhost:8765"); // Adjust if hosted elsewhere
-
-    socket.onopen = () => {
-      addMessage("Connected to the server!", "server");
-    };
-
-    socket.onmessage = (event) => {
-      addMessage(event.data, "server");
-    };
-
-    socket.onclose = () => {
-      addMessage("Disconnected from the server.", "server");
-    };
-
+  
     function addMessage(text, sender) {
       const bubble = document.createElement("div");
       bubble.className = "bubble " + sender;
@@ -132,3 +115,4 @@
     });
   </script>
 </body>
+</html>
