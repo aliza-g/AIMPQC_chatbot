@@ -41,3 +41,4 @@ Chat GUI
 •	Send button
 •	Handles graceful shutdown on window close or "exit".
 •	Threading: Uses a background thread to listen for server messages without freezing the UI.
+Color palette used: https://coolors.co/edd4b2-d0a98f-cac2b5-ecdcc9-002642
