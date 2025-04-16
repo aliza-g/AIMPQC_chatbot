@@ -91,28 +91,5 @@
     </div>
   </div>
 
-  
-    function addMessage(text, sender) {
-      const bubble = document.createElement("div");
-      bubble.className = "bubble " + sender;
-      bubble.textContent = text;
-      messages.appendChild(bubble);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function sendMessage() {
-      const text = input.value.trim();
-      if (text === "") return;
-      addMessage("You: " + text, "user");
-      socket.send(text);
-      input.value = "";
-    }
-
-    input.addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        sendMessage();
-      }
-    });
-  </script>
 </body>
 </html>
